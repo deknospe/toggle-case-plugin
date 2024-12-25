@@ -1,0 +1,20 @@
+<idea-plugin>
+    <id>com.example.togglecase</id>
+    <name>ToggleCasePlugin</name>
+    <version>1.0</version>
+    <vendor email="deknospe@gmail.com" url="https://github.com/deknospe">Александр</vendor>
+
+    <description>
+        Плагин, который меняет регистр выделенного текста на противоположный.
+    </description>
+
+    <actions>
+        <action
+                id="ToggleCaseAction"
+                class="com.example.togglecase.ToggleCaseAction"
+                text="Toggle Case"
+                description="Invert case of selected text">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl T"/>
+        </action>
+    </actions>
+</idea-plugin>
