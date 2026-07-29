@@ -1,88 +1,74 @@
-# Toggle Case Plugin
+# Case Toolkit
 
-### ITMO IS'28 ISRPO Plugin
-Gromozdin Alexandr Vladimirovich M3109
+[![Build](https://github.com/deknospe/toggle-case-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/deknospe/toggle-case-plugin/actions/workflows/build.yml)
 
-## Description
-
-**Toggle Case Plugin** is an IntelliJ IDEA plugin that inverts the case of any selected text: uppercase letters become lowercase, and lowercase letters become uppercase. It also supports a simple configuration to toggle the functionality on or off.
-
----
+Case Toolkit is an IntelliJ Platform plugin for converting selected text between
+common naming conventions without leaving the editor.
 
 ## Features
 
-### 1. Toggle Case
-
-- Converts all selected **UPPERCASE** letters to **lowercase**.
-- Converts all selected **lowercase** letters to **UPPERCASE**.
-- Non-alphabetic characters remain unchanged.
-
-### 2. Simple Undo/Redo
-
-- The plugin supports IntelliJ’s native undo/redo functionality.
-- All changes can be reverted with standard shortcuts (e.g., `Ctrl+Z` or `Cmd+Z`).
-
----
+- Toggle individual letters between upper and lower case.
+- Convert text to `UPPER CASE`, `lower case`, or `Title Case`.
+- Convert identifiers to `camelCase`, `PascalCase`, `snake_case`, or `kebab-case`.
+- Recognize whitespace, punctuation, existing delimiters, camel-case boundaries,
+  and acronym boundaries.
+- Transform every active selection in a multi-caret editing session.
+- Preserve IntelliJ IDEA's native undo and redo behavior.
+- Handle Latin, Cyrillic, and other Unicode letters with locale-independent rules.
 
 ## Usage
 
-1. **Select** the text in an open file within IntelliJ IDEA.
-2. Press the assigned keyboard shortcut (e.g., `Ctrl+\ + Ctrl+T`).
-3. The selected text will automatically have its case inverted.
+1. Select text in an editor.
+2. Open **Edit → Convert Case**.
+3. Choose the required conversion.
 
----
+Toggle Case is also available with <kbd>Ctrl</kbd>+<kbd>\\</kbd>. Any shortcut can
+be changed under **Settings/Preferences → Keymap** by searching for “Convert Case”.
 
-## Configuration
+For example:
 
-Currently, the plugin does not require additional configuration.  
-If you wish to change the shortcut:
+| Input | Conversion | Result |
+| --- | --- | --- |
+| `Hello, Мир!` | Toggle Case | `hELLO, мИР!` |
+| `parseHTTPResponse-value` | snake_case | `parse_http_response_value` |
+| `XML_http-request` | camelCase | `xmlHttpRequest` |
+| `multiple selection support` | PascalCase | `MultipleSelectionSupport` |
 
-1. Go to **File > Settings > Keymap** (or **Preferences > Keymap** on macOS).
-2. Search for **Toggle Case**.
-3. Assign a new keyboard shortcut as desired.
+## Compatibility
 
----
+- IntelliJ IDEA 2024.2 or newer
+- Java 17 bytecode
 
-## Supported Languages
+The implementation uses only IntelliJ Platform APIs, so it is not tied to a
+particular programming language or file type.
 
-Since this plugin operates on raw text, **any language** or file type open in the IntelliJ editor is supported.
+## Build from source
 
----
+The Gradle wrapper is included:
 
-## Installation
+```shell
+./gradlew check buildPlugin
+```
 
-1. **Build** or **download** the `.zip` distribution of the plugin.
-2. Open **IntelliJ IDEA**.
-3. Go to **File > Settings > Plugins** (or **Preferences > Plugins** on macOS).
-4. Click on the gear icon (⚙) and select **Install Plugin from Disk...**.
-5. Choose the downloaded `.zip` file.
-6. Restart the IDE if prompted.
+The installable ZIP is written to `build/distributions/`. To try the plugin in a
+sandboxed IDE instance, run:
 
----
+```shell
+./gradlew runIde
+```
 
-## Known Issues
+## Project structure
 
-- Characters that are not letters (e.g., numbers, punctuation) remain unchanged.
-- Very large selections may lead to minor performance delays, but typically it’s fast.
-
----
+- `CaseConverter` contains the IDE-independent conversion engine.
+- `CaseTransformAction` applies a conversion to all active editor selections.
+- `src/test` contains the JUnit 5 regression suite.
+- `.github/workflows/build.yml` builds and tests every pull request.
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit a pull request or open an issue on GitHub if you have any suggestions or encounter any bugs.
-
----
-
-## Release Notes
-
-### 0.0.2
-- Added undo/redo support.
-
-### 0.0.1
-- Initial release with case toggling functionality.
-
----
+Bug reports and pull requests are welcome. Please keep conversion logic independent
+from IntelliJ APIs where possible and add a regression test for behavior changes.
 
 ## License
 
-MIT
+Distributed under the [MIT License](LICENSE).
