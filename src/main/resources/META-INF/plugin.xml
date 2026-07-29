@@ -1,20 +1,64 @@
 <idea-plugin>
-    <id>com.example.togglecase</id>
-    <name>ToggleCasePlugin</name>
-    <version>1.0</version>
-    <vendor email="deknospe@gmail.com" url="https://github.com/deknospe">Александр</vendor>
+    <id>io.github.deknospe.case-toolkit</id>
+    <name>Case Toolkit</name>
+    <vendor email="deknospe@gmail.com" url="https://github.com/deknospe">Alexander Gromozdin</vendor>
 
-    <description>
-        Плагин, который меняет регистр выделенного текста на противоположный.
-    </description>
+    <description><![CDATA[
+        Convert selected text between toggle, upper, lower, title, camel, Pascal, snake, and kebab case.
+        Every action supports multiple carets and integrates with the IDE's undo history.
+    ]]></description>
+
+    <idea-version since-build="242"/>
+    <depends>com.intellij.modules.platform</depends>
 
     <actions>
-        <action
-                id="ToggleCaseAction"
-                class="com.example.togglecase.ToggleCaseAction"
-                text="Toggle Case"
-                description="Invert case of selected text">
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl T"/>
-        </action>
+        <group id="CaseToolkit.Actions" text="Convert Case" popup="true">
+            <add-to-group group-id="EditMenu" anchor="last"/>
+
+            <action
+                    id="CaseToolkit.Toggle"
+                    class="io.github.deknospe.casetoolkit.ToggleCaseAction"
+                    text="tOGGLE cASE"
+                    description="Invert the case of every selected letter">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
+            </action>
+            <separator/>
+            <action
+                    id="CaseToolkit.Upper"
+                    class="io.github.deknospe.casetoolkit.UpperCaseAction"
+                    text="UPPER CASE"
+                    description="Convert selected text to upper case"/>
+            <action
+                    id="CaseToolkit.Lower"
+                    class="io.github.deknospe.casetoolkit.LowerCaseAction"
+                    text="lower case"
+                    description="Convert selected text to lower case"/>
+            <action
+                    id="CaseToolkit.Title"
+                    class="io.github.deknospe.casetoolkit.TitleCaseAction"
+                    text="Title Case"
+                    description="Convert selected text to title case"/>
+            <separator/>
+            <action
+                    id="CaseToolkit.Camel"
+                    class="io.github.deknospe.casetoolkit.CamelCaseAction"
+                    text="camelCase"
+                    description="Convert selected text to camel case"/>
+            <action
+                    id="CaseToolkit.Pascal"
+                    class="io.github.deknospe.casetoolkit.PascalCaseAction"
+                    text="PascalCase"
+                    description="Convert selected text to Pascal case"/>
+            <action
+                    id="CaseToolkit.Snake"
+                    class="io.github.deknospe.casetoolkit.SnakeCaseAction"
+                    text="snake_case"
+                    description="Convert selected text to snake case"/>
+            <action
+                    id="CaseToolkit.Kebab"
+                    class="io.github.deknospe.casetoolkit.KebabCaseAction"
+                    text="kebab-case"
+                    description="Convert selected text to kebab case"/>
+        </group>
     </actions>
 </idea-plugin>
